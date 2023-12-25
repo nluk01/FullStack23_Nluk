@@ -1,59 +1,55 @@
-const Header = ({kurssi}) => {
+const Header = ({ course }) => {
   return (
-    <h1>{kurssi}</h1>
+    <h1>{course}</h1>
   )
 }
 
-const Content = ({part1, harjoitus1, part2, harjoitus2, part3, harjoitus3}) => {
+const Part = ({part, exercises}) => {
+  return (
+    <p>
+      {part} {exercises}
+    </p>
+  )
+}
+
+const Content = ({ parts }) => {
   return (
     <div>
-      <p>
-        {part1} {harjoitus1}
-      </p>
-      <p>
-        {part2} {harjoitus2}
-      </p>
-      <p>
-        {part3} {harjoitus3}
-      </p>
+      {parts.map((part, index) => (
+        <Part key={index} part={part.name} exercises={part.exercises} />
+      ))}
     </div>
   )
 }
 
-const Total = ({harjoitus1, harjoitus2, harjoitus3}) => {
-  const totalExercises = harjoitus1 + harjoitus2 + harjoitus3;
+const Total = ({ exercises1, exercises2, exercises3 }) => {
+  const totalExercises = exercises1 + exercises2 + exercises3;
   return (
     <p>Number of exercises {totalExercises}</p>
-  )
-}
+  );
+};
 
 const App = () => {
-  const kurssi = 'Half Stack application development';
-  const part1 = 'Fundamentals of React';
-  const harjoitus1 = 10;
-  const part2 = 'Using props to pass data';
-  const harjoitus2 = 7;
-  const part3 = 'State of a component';
-  const harjoitus3 = 14;
+  const course = 'Half Stack application development';
+  const parts = [
+    { name: 'Fundamentals of React', exercises: 10 },
+    { name: 'Using props to pass data', exercises: 7 },
+    { name: 'State of a component', exercises: 14 }
+  ]
+
+  const [part1, part2, part3] = parts; 
 
   return (
     <div>
-      <Header kurssi={kurssi} />
-      <Content
-        part1={part1}
-        harjoitus1={harjoitus1}
-        part2={part2}
-        harjoitus2={harjoitus2}
-        part3={part3}
-        harjoitus3={harjoitus3}
-      />
+      <Header course={course} />
+      <Content parts={parts} />
       <Total
-        harjoitus1={harjoitus1}
-        harjoitus2={harjoitus2}
-        harjoitus3={harjoitus3}
+        exercises1={part1.exercises}
+        exercises2={part2.exercises}
+        exercises3={part3.exercises}
       />
     </div>
-  );
-};
+  )
+}
 
 export default App;
